@@ -1,0 +1,6 @@
+*.pyc
+/media/*
+/.idea/*
+/static/*
+!static/lmnad/
+*.sqlite3
