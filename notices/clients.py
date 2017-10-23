@@ -88,7 +88,7 @@ class TourClient:
     request_tour = 'http://searchtour.anextour.com:9999/lct/tour.php?api={tour_key}'
 
     def __init__(self):
-        print('create anex client object')
+        logger.info('create anex client object')
 
     def send_notification(self, users):
         """ Send notification about tour """
@@ -137,12 +137,12 @@ class TourClient:
         try:
             dates = params['anextour_filter']['date']['endDate']
         except AttributeError:
-            begin_end = None
+            end_date = None
         else:
             year = dates['year']
             month = dates['month']
             day = dates['day']
-            begin_end = '{year}-{month}-{day}'.format(year=year, month=month, day=day)
+            end_date = '{year}-{month}-{day}'.format(year=year, month=month, day=day)
 
         if stars:
             payload['STAR'] = stars
@@ -150,8 +150,8 @@ class TourClient:
         if begin_date:
             payload['CHECKIN_BEG'] = begin_date
 
-        if begin_end:
-            payload['CHECKIND_END'] = begin_date
+        if end_date:
+            payload['CHECKIND_END'] = end_date
 
         try:
             r = requests.get(url, params=payload)
